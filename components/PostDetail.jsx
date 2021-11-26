@@ -24,6 +24,7 @@ const PostDetail = ({post}) => {
 						ccontent={post.featuredImage.url}
 					/>
 					<meta property="og:image:type" content="image/jpg" />
+					<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=61a0931fe34ea500192d19c7&product=sop' async='async'></script>
 				</Head>
 			)
 
