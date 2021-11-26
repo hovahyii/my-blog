@@ -11,13 +11,13 @@ export default function Home({posts}) {
 			<title>{`${APP_NAME}`}</title>
 			<meta
 				name="description"
-				content="I start a new university life at UMP. And this blog is my stories about it."
+				content="I started a new university life at UMP. And this blog is my stories about it."
 			/>
 			<link rel="canonical" href={`${DOMAIN}`} />
 			<meta property="og:title" content={`${APP_NAME}`} />
 			<meta
 				property="og:description"
-				content="I start a new university life at UMP. And this blog is my stories about it."
+				content="I started a new university life at UMP. And this blog is my stories about it."
 			/>
 			<meta property="og:type" content="webiste" />
 			<meta property="og:url" content={`${DOMAIN}`} />
