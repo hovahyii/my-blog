@@ -25,7 +25,7 @@ export default function Home({posts}) {
 
 			<meta property="og:image" content={`${DOMAIN}/logo.png`} />
 			<meta property="og:image:secure_url" content={`${DOMAIN}/logo.png`} />
-			<meta property="og:image:type" content="image/jpg" />
+			<meta property="og:image:type" content="image/png" />
 			<script
 				data-name="BMC-Widget"
 				data-cfasync="false"
