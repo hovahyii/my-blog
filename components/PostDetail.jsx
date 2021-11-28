@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from "moment"
 import Head from "next/head"
-import {API, DOMAIN, APP_NAME} from "../config"
+import { DOMAIN, APP_NAME} from "../config"
 
 const PostDetail = ({post}) => {
 
@@ -43,6 +43,11 @@ const PostDetail = ({post}) => {
 			if (obj.underline) {
 				modifiedText = <u key={index}>{text}</u>
 			}
+
+			if (obj.link) {
+				modifiedText = <a key={index}>{text}</a>
+			}
+
 		}
 
 		switch (type) {
@@ -54,6 +59,7 @@ const PostDetail = ({post}) => {
 						))}
 					</h3>
 				)
+
 			case "paragraph":
 				return (
 					<p key={index} className="mb-8">
@@ -80,6 +86,15 @@ const PostDetail = ({post}) => {
 						src={obj.src}
 					/>
 				)
+			case "link":
+				return (
+					<a key={index} className="underline">
+						{modifiedText.map((item, i) => (
+							<React.Fragment key={i}>{item}</React.Fragment>
+						))}
+					</a>
+				)
+
 			default:
 				return modifiedText
 		}
@@ -87,7 +102,6 @@ const PostDetail = ({post}) => {
 
 	return (
 		<>
-			
 			{head()}
 			<div className="bg-white shadow-lg rounded-lg lg:p-8 pb-12 mb-8">
 				<div className="relative overflow-hidden shadow-md mb-6">
@@ -132,6 +146,7 @@ const PostDetail = ({post}) => {
 						</div>
 					</div>
 					<h1 className="mb-8 text-3xl font-semibold">{post.title}</h1>
+
 					{post.content.raw.children.map((typeObj, index) => {
 						const children = typeObj.children.map((item, itemindex) =>
 							getContentFragment(itemindex, item.text, item)
