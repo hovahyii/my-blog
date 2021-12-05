@@ -16,7 +16,7 @@ const PostDetail = ({ post }) => {
 					<meta name="author" content="Hovah Yii" />
 
 					<link rel="canonical" href={post.slug} />
-					<meta property="og:title" content={`${post.title}| ${APP_NAME}`} />
+					<meta property="og:title" content={`${post.title} | ${APP_NAME}`} />
 					<meta property="og:description" content={post.excerpt} />
 					<meta property="og:type" content="website" />
 					<meta property="og:url" content={`${DOMAIN}/blogs/${post.slug}`} />
