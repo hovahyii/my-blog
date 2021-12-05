@@ -2,8 +2,9 @@ import React from 'react'
 import moment from "moment"
 import Head from "next/head"
 import { DOMAIN, APP_NAME} from "../config"
+import { RichText } from '@graphcms/rich-text-react-renderer'
 
-const PostDetail = ({post}) => {
+const PostDetail = ({ post }) => {
 
 	   const head = () => (
 				<Head>
@@ -11,24 +12,30 @@ const PostDetail = ({post}) => {
 						{post.title} | {APP_NAME}
 					</title>
 					<meta name="description" content={post.excerpt} />
+					<meta name="keywords" content={post.keywords} />
+					<meta name="author" content="Hovah Yii" />
+
 					<link rel="canonical" href={post.slug} />
 					<meta property="og:title" content={`${post.title}| ${APP_NAME}`} />
 					<meta property="og:description" content={post.excerpt} />
-					<meta property="og:type" content="webiste" />
+					<meta property="og:type" content="website" />
 					<meta property="og:url" content={`${DOMAIN}/blogs/${post.slug}`} />
 					<meta property="og:site_name" content={`${APP_NAME}`} />
-
 					<meta property="og:image" content={post.featuredImage.url} />
 					<meta
 						property="og:image:secure_url"
 						ccontent={post.featuredImage.url}
 					/>
 					<meta property="og:image:type" content="image/jpg" />
-					<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=61a0931fe34ea500192d19c7&product=sop' async='async'></script>
+					<script
+						type="text/javascript"
+						src="https://platform-api.sharethis.com/js/sharethis.js#property=61a0931fe34ea500192d19c7&product=sop"
+						async="async"
+					></script>
 				</Head>
 			)
 
-	const getContentFragment = (index, text, obj, type) => {
+	const getContentFragment = (index, text,  obj, type) => {
 		let modifiedText = text
 
 		if (obj) {
@@ -44,8 +51,19 @@ const PostDetail = ({post}) => {
 				modifiedText = <u key={index}>{text}</u>
 			}
 
-			if (obj.link) {
-				modifiedText = <a key={index}>{text}</a>
+			if (obj.link){
+				modifiedText = 
+					<a
+						key={index}
+						href={obj.url}
+						className="underline"
+						title={obj.name}
+						target={openInNewTab ? "_blank" : "_self"}
+						rel={rel || "noopener noreferrer"}
+					>
+						{text}
+					</a>
+				
 			}
 
 		}
@@ -86,19 +104,23 @@ const PostDetail = ({post}) => {
 						src={obj.src}
 					/>
 				)
-			case "link":
+			case "quote":
 				return (
-					<a key={index} className="underline">
+					<blockquote key={index} className="mb-8">
+						{" "}
 						{modifiedText.map((item, i) => (
 							<React.Fragment key={i}>{item}</React.Fragment>
 						))}
-					</a>
+					</blockquote>
 				)
 
 			default:
 				return modifiedText
 		}
 	}
+
+
+
 
 	return (
 		<>
@@ -107,7 +129,7 @@ const PostDetail = ({post}) => {
 				<div className="relative overflow-hidden shadow-md mb-6">
 					<img
 						src={post.featuredImage.url}
-						alt=""
+						alt={post.featuredImage.name}
 						className="object-top h-full w-full object-cover  shadow-lg rounded-t-lg lg:rounded-lg"
 					/>
 				</div>
@@ -147,13 +169,17 @@ const PostDetail = ({post}) => {
 					</div>
 					<h1 className="mb-8 text-3xl font-semibold">{post.title}</h1>
 
-					{post.content.raw.children.map((typeObj, index) => {
-						const children = typeObj.children.map((item, itemindex) =>
-							getContentFragment(itemindex, item.text, item)
+					<RichText
+						content={post.content.raw.children}
+						renderers={getContentFragment}
+					></RichText>
+					{/* {post.content.raw.children.map((typeObj, index) => {
+						const children = typeObj.children.map((item, itemIndex) =>
+							getContentFragment(itemIndex, item.text, item)
 						)
 
 						return getContentFragment(index, children, typeObj, typeObj.type)
-					})}
+					})}  */}
 				</div>
 			</div>
 		</>

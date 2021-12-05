@@ -13,6 +13,10 @@ export default function Home({posts}) {
 				name="description"
 				content="I started a new university life at UMP. And this blog is my stories about it."
 			/>
+			<meta http-equiv="refresh" content="60" />
+
+			<meta name="keywords" content="hovah yii, blog, UMP, tb20091, ump life, programming, devotion, studies, book review" />
+  			<meta name="author" content="Hovah Yii" />
 			<link rel="canonical" href={`${DOMAIN}`} />
 			<meta property="og:title" content={`${APP_NAME}`} />
 			<meta
